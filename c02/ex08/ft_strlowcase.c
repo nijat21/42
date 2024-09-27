@@ -1,13 +1,13 @@
-char *ft_strupcase(char *str)
+char *ft_lowcase(char *str)
 {
     int i;
 
     i = 0;
     while (str[i] != '\0')
     {
-        if ('a' <= str[i] && str[i] <= 'z')
+        if ('A' <= str[i] && str[i] <= 'Z')
         {
-            str[i] = str[i] - 32;
+            str[i] = str[i] + 32;
         }
         i++;
     }
@@ -18,9 +18,9 @@ char *ft_strupcase(char *str)
 
 int main(void)
 {
-    char source[] = "every letter";
+    char source[] = "EVERY LETTER";
 
-    char *result = ft_strupcase(source);
+    char *result = ft_lowcase(source);
 
     printf("%s\n", result);
 
