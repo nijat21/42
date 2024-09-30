@@ -1,26 +1,27 @@
 #include <unistd.h>
 
-void char_to_hex(char ch, char hex[3])
+void char_to_hex(char ch)
 {
-    const char *hex_digits = "0123456789abcdef";
-    hex[0] = hex_digits[(ch >> 4) & 0xF]; // Get the higher nibble
-    hex[1] = hex_digits[ch & 0xF];        // Get the lower nibble
-    hex[2] = '\0';                        // Null-terminate the string
+    const char *hext_digits = "0123456789abcdef";
+    char result[2];
+
+    result[0] = hext_digits[(ch >> 4) & 0xF];
+    result[1] = hext_digits[ch & 0xF];
+
+    write(1, &result, 2);
 }
 
 void ft_putstr_non_printable(char *str)
 {
     int i;
-    char c;
-    char hex[3];
+    char *hex;
 
     i = 0;
     while (str[i] != '\0')
     {
         if (!(32 <= str[i] && str[i] <= 126))
         {
-            char_to_hex(str[i], hex);
-            write(1, &hex, 1);
+            char_to_hex(str[i]);
         }
         else
             write(1, &str[i], 1);
@@ -30,7 +31,7 @@ void ft_putstr_non_printable(char *str)
 
 int main(void)
 {
-    char *str = "Coucou\0tu vas bien ?";
+    char *str = "Coucou\ntu vas bien ?";
     ft_putstr_non_printable(str);
 
     return (0);
