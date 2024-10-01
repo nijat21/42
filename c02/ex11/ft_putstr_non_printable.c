@@ -5,8 +5,8 @@ void char_to_hex(char ch)
     const char *hext_digits = "0123456789abcdef";
     char result[2];
 
-    result[0] = hext_digits[(ch >> 4) & 0xF];
-    result[1] = hext_digits[ch & 0xF];
+    result[0] = hext_digits[ch / 16];
+    result[1] = hext_digits[ch % 16];
 
     write(1, &result, 2);
 }
