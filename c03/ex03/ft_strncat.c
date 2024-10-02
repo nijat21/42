@@ -1,13 +1,13 @@
-char *ft_strcat(char *dest, char *src)
+char *ft_strncat(char *dest, char *src, unsigned int nb)
 {
-    int count;
-    int j;
+    unsigned int count;
+    unsigned int j;
 
     count = 0;
     while (dest[count])
         count++;
     j = 0;
-    while (src[j] != '\0')
+    while (src[j] != '\0' && j < nb)
     {
         dest[count + j] = (unsigned char)src[j];
         j++;
@@ -23,13 +23,14 @@ int main(void)
 {
     char s1[15] = "some";
     char s2[] = "where";
+    unsigned int size = 5;
 
-    char *res1 = strcat(s1, s2);
+    char *res1 = strncat(s1, s2, size);
 
     char s3[15] = "some";
     char s4[] = "where";
 
-    char *res2 = ft_strcat(s3, s4);
+    char *res2 = ft_strncat(s3, s4, size);
 
     printf("Original: %s\n", s1);
     printf("Original: %s\n", res1);
