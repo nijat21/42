@@ -3,12 +3,10 @@ int ft_strcmp(char *s1, char *s2)
     int i;
 
     i = 0;
-    if (!s1[i] && !s2[i])
-        return (0);
     while (s1[i] || s2[i])
     {
         if (s1[i] != s2[i])
-            return (s1[i] - s2[i]);
+            return ((unsigned char)s1[i] - (unsigned char)s2[i]);
         i++;
     }
     return (0);
@@ -28,7 +26,7 @@ int main(void)
     char *s5 = "some";
     char *s6 = "some";
 
-    char *s7 = "";
+    char *s7 = "s";
     char *s8 = "";
 
     printf("Original: %i\n", strcmp(s1, s2));
