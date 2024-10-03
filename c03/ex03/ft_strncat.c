@@ -15,7 +15,7 @@ char *ft_strncat(char *dest, char *src, unsigned int nb)
     dest[count + j] = '\0';
     return dest;
 }
-
+/*
 #include <string.h>
 #include <stdio.h>
 
@@ -36,4 +36,4 @@ int main(void)
     printf("Original: %s\n", res1);
     printf("Mine: %s\n", s3);
     printf("Mine: %s\n", res2);
-}
+} */

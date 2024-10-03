@@ -15,7 +15,7 @@ char *ft_strcat(char *dest, char *src)
     dest[count + j] = '\0';
     return dest;
 }
-
+/*
 #include <string.h>
 #include <stdio.h>
 
@@ -35,4 +35,4 @@ int main(void)
     printf("Original: %s\n", res1);
     printf("Mine: %s\n", s3);
     printf("Mine: %s\n", res2);
-}
+} */

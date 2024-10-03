@@ -19,7 +19,7 @@ char *ft_strstr(char *str, char *to_find)
     }
     return (0);
 }
-
+/*
 #include <string.h>
 #include <stdio.h>
 
@@ -41,3 +41,4 @@ int main(void)
     printf("Mine found: %s\n", res_local);
     printf("Mine not found: %s\n", res_local1);
 }
+ */

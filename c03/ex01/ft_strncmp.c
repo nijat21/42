@@ -11,7 +11,7 @@ int ft_strncmp(char *s1, char *s2, unsigned int n)
     }
     return (0);
 }
-
+/*
 #include <stdio.h>
 #include <string.h>
 
@@ -44,4 +44,4 @@ int main(void)
     printf("Mine: %i\n", ft_strncmp(s7, s8, n));
 
     return (0);
-}
+} */
