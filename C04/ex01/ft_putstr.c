@@ -1,6 +1,6 @@
 #include <unistd.h>
 
-void ft_pustr(char *str)
+void ft_putstr(char *str)
 {
     int i;
 
@@ -16,6 +16,6 @@ int main(void)
 {
     char *str = "42 rocks";
 
-    ft_pustr(str);
+    ft_putstr(str);
     return (0);
 } */
