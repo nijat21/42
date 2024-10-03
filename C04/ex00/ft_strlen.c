@@ -7,7 +7,7 @@ int ft_strlen(char *str)
         i++;
     return i;
 }
-
+/*
 #include <stdio.h>
 
 int main(void)
@@ -16,4 +16,4 @@ int main(void)
 
     int i = ft_strlen(str);
     printf("%i\n", i);
-}
+} */
