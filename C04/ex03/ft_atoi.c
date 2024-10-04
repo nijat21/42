@@ -99,18 +99,18 @@ int ft_atoi(char *str)
 
 int main(void)
 {
-    char *str = " ---+--+1234ab567";
+    // char *str = " ---+--+1234ab567";
     // char *str = " ---+--+abc123";
     // char *str = "1234ab567";
     // char *str = "-1234ab567";
+    char *str = "some-123";
 
     int res1 = ft_atoi(str);
-    int res2 = atoi(str);
 
     printf("Mine: %i\n", res1);
 
-    int sign = det_sign(str);
-    printf("Sign: %i\n", sign);
+    // int sign = det_sign(str);
+    // printf("Sign: %i\n", sign);
 
     return (0);
 } */

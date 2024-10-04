@@ -1,3 +1,51 @@
+int in_base(char c, char *base)
+{
+    int i;
+
+    i = 0;
+    while (base[i])
+    {
+        if (c == base[i])
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+int prefix_check(char c, char *base)
+{
+    if (in_base(c, base) ||
+        (c == '-') || (c == '+') ||
+        (c == ' '))
+        return (1);
+    else
+        return (0);
+}
+
+int base_check(char *base)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (base[i])
+    {
+        if (base[i] == '-' || base[i] == '+')
+            return 0;
+        j = 0;
+        while (base[j] && j != i)
+        {
+            if (base[j] == base[i])
+                return (0);
+            j++;
+        }
+        i++;
+    }
+    if (i == 0 || i == 1)
+        return (0);
+    return i;
+}
+
 int det_sign(char *str)
 {
     int i;
@@ -42,98 +90,86 @@ int num_powers(int num, int power)
     return result;
 }
 
-int valid_base(char *base)
+int find_index(char c, char *base)
 {
     int i;
-    int j;
 
     i = 0;
     while (base[i])
     {
-        if (base[i] == '-' || base[i] == '+')
-            return (0);
-        j = 0;
-        while (base[j] && (j != i))
-        {
-            if (base[i] == base[j])
-                return (0);
-            j++;
-        }
+        if (c == base[i])
+            return i;
         i++;
     }
-    if (i == 0 || i == 1)
-        return (0);
-    return i;
+    return (0);
 }
 
-int convert_arr(int *arr, int count, char *base)
+int calculate(char *arr, int radix, int len, char *base)
 {
     int i;
-    int res;
-    int num;
+    int result;
+    // printf("arr: %s\n", arr);
+    // printf("radix: %i\n", radix);
+    // printf("len: %i\n", len);
 
-    if (count == 0)
-        return (0);
-    num = valid_base(base);
     i = 0;
-    res = 0;
-    while (i < count)
+    result = 0;
+    while (i < len)
     {
-        res += arr[i] * num_powers(10, count - 1 - i);
+        result += find_index(arr[i], base) * num_powers(radix, len - 1 - i);
         i++;
     }
-    return res;
-}
-
-int is_safe(char c)
-{
-    if ((c >= '0' && c <= '9') ||
-        (c == '-') || (c == '+') ||
-        (c == ' '))
-        return (1);
-    else
-        return (0);
+    return result;
 }
 
 int ft_atoi_base(char *str, char *base)
 {
     int i;
-    int count;
-    int arr[10];
+    int len;
+    int radix;
+    char arr[32];
 
+    if (!(radix = base_check(base)))
+        return (0);
     i = 0;
-    count = 0;
+    len = 0;
     while (str[i])
     {
-        if (str[i] >= '0' && str[i] <= '9')
+        if (in_base(str[i], base))
         {
-            if (!is_safe(str[i - 1]) && i > 0)
+            arr[len] = str[i];
+            len++;
+            if ((i - 1 >= 0) && !prefix_check(str[i - 1], base))
                 break;
-            arr[count] = str[i] - '0';
-            count++;
-            if (!(str[i + 1] >= '0' && str[i + 1] <= '9') &&
-                (str[i + 1] != '\0'))
+            if ((str[i + 1] != '\0') && !in_base(str[i + 1], base))
                 break;
         }
         i++;
     }
-    return convert_arr(arr, count, base) * det_sign(str);
+    return det_sign(str) * calculate(arr, radix, len, base);
 }
+/*
+#include <stdio.h>
 
-// #include <stdio.h>
+int main(void)
+{
+    // char *str = " ---+-+ABsome123";
+    // char *str = " ---+-+123ABsome";
+    // char *str = "some-123AFaf";
+    // char *str = "FF";
+    // char *str = " -123some";
+    char *str = "101101";
 
-// int main(void)
-// {
-//     char *str = " ---+--+1234ab567";
-//     // char *str = " ---+--+abc123";
-//     // char *str = "1234ab567";
-//     // char *str = "-1234ab567";
+    // char *base = "0123456789ABCDEF";
+    // char *base = "0123456789";
+    char *base = "01";
 
-//     char *radix_hex = "0123456789ABCDEF";
+    int res = ft_atoi_base(str, base);
 
-//     int res1 = ft_atoi_base(str, radix_hex);
+    printf("%i\n", res);
 
-//     printf("Mine: %i\n", res1);
+    int res1 = in_base('0', base);
+    printf("In base: %i\n", res1);
 
-//     return (0);
-// }
+    return (0);
+} */
