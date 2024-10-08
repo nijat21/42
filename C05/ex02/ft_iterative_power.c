@@ -20,7 +20,7 @@ int ft_iterative_power(int nb, int power)
 int main(void)
 {
     int res = ft_iterative_power(1, 2);
-    int res1 = ft_iterative_power(0, 0);
+    int res1 = ft_iterative_power(5, 0);
     int res2 = ft_iterative_power(2, 3);
     int res3 = ft_iterative_power(2, 4);
 
