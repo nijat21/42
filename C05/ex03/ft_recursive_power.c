@@ -1,4 +1,3 @@
-#include <stdio.h>
 int ft_recursive_power(int nb, int power)
 {
     // int temp;
@@ -12,6 +11,7 @@ int ft_recursive_power(int nb, int power)
     return (nb * ft_recursive_power(nb, power - 1));
 }
 /*
+#include <stdio.h>
 int main(void)
 {
     // int res = ft_recursive_power(1, 2);
