@@ -47,7 +47,7 @@ char *make_line(char *str, int *index)
     return new_line;
 }
 
-char *merge_lines(char *prev_line, char *curr_line)
+char *ft_strjoin(char *prev_line, char *curr_line)
 {
     char *final_line;
     int i;
@@ -55,31 +55,82 @@ char *merge_lines(char *prev_line, char *curr_line)
 
     final_line = malloc(ft_strlen(prev_line) + ft_strlen(curr_line) + 1);
     i = 0;
-    while (prev_line[i])
-    {
-        final_line[i] = prev_line[i];
-        i++;
-    }
+    if (prev_line[i])
+        while (prev_line[i])
+        {
+            final_line[i] = prev_line[i];
+            i++;
+        }
     j = 0;
-    while (curr_line[j])
-    {
-        final_line[i + j] = curr_line[j];
-        j++;
-    }
+    if (curr_line[j])
+        while (curr_line[j])
+        {
+            final_line[i + j] = curr_line[j];
+            j++;
+        }
     final_line[i + j] = '\0';
     return final_line;
 }
 
-// LEFTOVER BUFFER
+void create_merge(char *buffer, int *index, char **final_line)
+{
+    char *new_line;
+    char *temp;
+
+    new_line = make_line(buffer, index);
+    if (!new_line)
+    {
+        free(*final_line);
+        *final_line = NULL;
+        free(new_line);
+        new_line = NULL;
+        return;
+    }
+    temp = ft_strjoin(*final_line, new_line);
+    free(new_line);
+    free(*final_line);
+    if (!temp)
+    {
+        *final_line = NULL;
+        free(temp);
+        temp = NULL;
+        return;
+    }
+    *final_line = temp;
+}
+
+// void create_line(char *str, char **final_line)
+// {
+//     char *new_line;
+//     char *check_line;
+
+//     new_line = single_line(str);
+//     if (!new_line)
+//     {
+//         free_and_nullify(final_line);
+//         free_and_nullify(&new_line);
+//         return;
+//     }
+//     check_line = ft_strjoin(*final_line, new_line);
+//     free_line(new_line);
+//     free_line(*final_line);
+//     if (!check_line)
+//     {
+//         *final_line = NULL;
+//         free_and_nullify(&check_line);
+//         return;
+//     }
+//     *final_line = check_line;
+// }
+
 char *get_next_line(int fd)
 {
     static char buf[BUFFER_SIZE + 1];
     int bytes_read;
-    char *new_line;
-    char *final_line;
+    char *nl;
     int index;
 
-    final_line = NULL;
+    nl = NULL;
     bytes_read = 0;
     while (bytes_read >= 0)
     {
@@ -91,12 +142,13 @@ char *get_next_line(int fd)
                 break;
             buf[BUFFER_SIZE] = '\0';
         }
-        new_line = make_line(buf, &index);
+        // new_line = make_line(buf, &index);
+        create_merge(buf, &index, &nl);
         ft_strcpy(buf, &buf[index]);
-        if (new_line[ft_strlen(new_line) - 1] == '\n')
+        if (nl[ft_strlen(nl) - 1] == '\n')
             break;
     }
-    return new_line;
+    return nl;
 }
 
 // BUFFER INCLUDES SEVERAL NEW LINES
