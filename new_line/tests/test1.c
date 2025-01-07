@@ -22,7 +22,7 @@ static void test_get_next_line(const char *filename)
 int main(void)
 {
     // test_get_next_line("files/text.txt");
-    test_get_next_line("files/text1.txt");
+    // test_get_next_line("files/text1.txt");
 
     // test_get_next_line("files/1char.txt");
     // test_get_next_line("files/empty");
@@ -38,7 +38,7 @@ int main(void)
     // test_get_next_line("files/giant_line.txt");
 
     // test_get_next_line("files/one_line_no_nl.txt");
-    // test_get_next_line("files/read_error.txt");
+    test_get_next_line("files/read_error.txt");
 
     return 0;
 }

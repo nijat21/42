@@ -18,8 +18,6 @@ void ft_strcpy(char *des, char *src)
 {
     int i;
 
-    if (!src)
-        return;
     i = 0;
     while (src[i])
     {
@@ -27,8 +25,12 @@ void ft_strcpy(char *des, char *src)
         i++;
     }
     des[i] = '\0';
-    while (des[i++])
+    i++;
+    while (des[i])
+    {
         des[i] = '\0';
+        i++;
+    }
     return;
 }
 
@@ -58,26 +60,47 @@ char *make_line(char *str, int *index)
 char *ft_strjoin(char *prev_line, char *curr_line)
 {
     char *final_line;
-    int i;
-    int j;
+    char *start;
 
+    if (!curr_line)
+        return NULL;
     final_line = malloc(ft_strlen(prev_line) + ft_strlen(curr_line) + 1);
     if (!final_line)
         return NULL;
-    i = 0;
+    start = final_line;
     if (prev_line)
-        while (prev_line[i])
-        {
-            final_line[i] = prev_line[i];
-            i++;
-        }
-    j = 0;
+        while (*prev_line)
+            *final_line++ = *prev_line++;
     if (curr_line)
-        while (curr_line[j])
-        {
-            final_line[i + j] = curr_line[j];
-            j++;
-        }
-    final_line[i + j] = '\0';
-    return final_line;
+        while (*curr_line)
+            *final_line++ = *curr_line++;
+    *final_line = '\0';
+    return start;
+}
+
+void create_merge(char **final_line, char *buf)
+{
+    char *new_line;
+    char *temp_line;
+    int index;
+
+    index = 0;
+    new_line = make_line(buf, &index);
+    if (!new_line)
+    {
+        free(*final_line);
+        *final_line = NULL;
+        return;
+    }
+    temp_line = ft_strjoin(*final_line, new_line);
+    free(new_line);
+    free(*final_line);
+    if (!temp_line)
+    {
+        *final_line = NULL;
+        free(temp_line);
+        return;
+    }
+    *final_line = temp_line;
+    ft_strcpy(buf, &buf[index]);
 }
